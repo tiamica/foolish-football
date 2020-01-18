@@ -1,0 +1,23 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Add 3d Analysis Module
+      run: mvn -pl analysis compile
+    - name: Build with 3D analysis Module 
+      run: mvn -pl analysis exec:exec        
+    - name: Compile Game
+      run: mvn -pl game compile
+    - name: Build Game
+      run: mvn -pl game exec:exec
